@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<div id="map" style="height: 500px;"></div>
+
+<script>
+    var map = L.map('map').setView([51.505, -0.09], 13); // Set the initial map view
+  
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+    }).addTo(map);
+  
+    // Load and add GeoJSON data to the map
+    fetch('https://raw.githubusercontent.com/Priankac/transradar/main/state.json')
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        L.geoJSON(data).addTo(map);
+      });
+
+      function getColor(d) {
+    return d == 5 ? '#FF0808' :
+           d == 4 ? '#F44A4A' :
+           d == 3  ? '#FF7272' :
+           d == 2  ? '#F69393' :
+           d == 1   ? '#F4BABA' :
+                      '#F8EEEE' ;
+        
+                      
+}
+  </script>
